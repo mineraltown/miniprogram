@@ -1,0 +1,50 @@
+{
+    "entryPagePath": "pages/wiki/index",
+    "pages": [
+        "pages/wiki/index",
+        "pages/resident/index",
+        "pages/resident/resident",
+        "pages/todo/todo",
+        "pages/setting/setting"
+    ],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "矿石镇",
+        "navigationBarBackgroundColor": "#ffffff"
+    },
+    "style": "v2",
+    "componentFramework": "glass-easel",
+    "sitemapLocation": "sitemap.json",
+    "lazyCodeLoading": "requiredComponents",
+    "useExtendedLib": {
+        "weui": true
+    },
+    "tabBar": {
+        "list": [
+            {
+                "pagePath": "pages/wiki/index",
+                "iconPath": "static/icon/home.png",
+                "selectedIconPath": "static/icon/home-s.png",
+                "text": "攻略"
+            },
+            {
+                "pagePath": "pages/resident/index",
+                "iconPath": "static/icon/resident.png",
+                "selectedIconPath": "static/icon/resident-s.png",
+                "text": "居民"
+            },
+            {
+                "pagePath": "pages/todo/todo",
+                "iconPath": "static/icon/todo.png",
+                "selectedIconPath": "static/icon/todo-s.png",
+                "text": "提醒"
+            },
+            {
+                "pagePath": "pages/setting/setting",
+                "iconPath": "static/icon/setting.png",
+                "selectedIconPath": "static/icon/setting-s.png",
+                "text": "设置"
+            }
+        ]
+    }
+}
