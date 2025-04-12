@@ -1,2 +1,2 @@
 <!--pages/wiki/index.wxml-->
-<text>pages/wiki/index.wxml</text>
+<view>{{ url }}</view>

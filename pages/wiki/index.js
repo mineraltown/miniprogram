@@ -1,26 +1,24 @@
 // pages/wiki/index.js
+const app = getApp()
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        url: app.globalData.url,
+        version: app.globalData.version
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad(options) {
-
-    },
+    onLoad(options) {},
 
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
-    onReady() {
-
-    },
+    onReady() {},
 
     /**
      * 生命周期函数--监听页面显示

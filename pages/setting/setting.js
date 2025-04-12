@@ -1,18 +1,46 @@
 // pages/setting/setting.js
+const app = getApp() // app.js > globalData
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        index: 0,
+        version: [],
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+        const that = this
+        wx.showLoading({
+            title: '获取版本...'
+        })
+        wx.request({
+            url: app.globalData.url + 'menu/',
+            header: {
+                'content-type': 'application/json'
+            },
+            success(res) {
+                if (res.statusCode === 200) {
+                    // 生成版本列表，用于picker
+                    let p = []
+                    for (let i in res.data) {
+                        p.push({
+                            label: res.data[i],
+                            value: i,
+                        })
+                    }
+                    that.setData({
+                        version: p
+                    })
+                }
+            },
+            complete: () => wx.hideLoading()
+        })
     },
 
     /**
