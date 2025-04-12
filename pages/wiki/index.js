@@ -82,12 +82,21 @@ Page({
                 'content-type': 'application/json'
             },
             success(res) {
-                wx.setStorageSync("cover", res.data.cover)
-                wx.setStorageSync("wiki", res.data.wiki)
-                that.setData({
-                    cover: res.data.cover,
-                    wiki: res.data.wiki,
-                })
+                if (res.statusCode === 200) {
+                    wx.setStorageSync("cover", res.data.cover)
+                    wx.setStorageSync("wiki", res.data.wiki)
+                    that.setData({
+                        cover: res.data.cover,
+                        wiki: res.data.wiki,
+                    })
+                } else {
+                    wx.setStorageSync("cover", "")
+                    wx.setStorageSync("wiki", {})
+                    that.setData({
+                        cover: "",
+                        wiki: {},
+                    })
+                }
             },
             complete: () => wx.hideLoading()
         })

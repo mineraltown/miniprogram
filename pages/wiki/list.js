@@ -14,6 +14,9 @@ Page({
             options: options,
             wiki: wx.getStorageSync("wiki")[options.l].list[options.n].list,
         })
+        wx.setNavigationBarTitle({
+            title: options.n
+        })
     },
 
     /**

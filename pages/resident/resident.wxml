@@ -1,2 +1,3 @@
-<!--pages/resident/resident.wxml-->
-<text>pages/resident/resident.wxml</text>
+<view class="content" wx:if="resident">
+    <view class="title">{{ resident.name.cn }}</view>
+</view>

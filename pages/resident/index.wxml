@@ -1,2 +1,15 @@
-<!--pages/resident/index.wxml-->
-<text>pages/resident/index.wxml</text>
+<view>
+    <view wx:for="{{ resident }}" wx:key="idx" wx:for-index="idx" wx:for-item="item">
+        <view class="menu_sub">{{ idx }}</view>
+        <view class="menu-resident">
+            <block wx:for="{{ item }}" wx:key="n" wx:for-index="n" wx:for-item="i">
+                <navigator url="/pages/resident/resident?id={{ i.id }}">
+                    <span class="item">
+                        <image class="resident-icon" mode="scaleToFill" src="{{ url + i.icon }}" />
+                        <text class="resident-text">{{ i.name }}</text>
+                    </span>
+                </navigator>
+            </block>
+        </view>
+    </view>
+</view>

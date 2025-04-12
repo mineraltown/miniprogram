@@ -26,6 +26,9 @@ Page({
                     time: res.data.time,
                     text: res.data.text,
                 })
+                wx.setNavigationBarTitle({
+                    title: res.data.title
+                })
             }
         })
     },
