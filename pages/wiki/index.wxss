@@ -1,1 +1,50 @@
 /* pages/wiki/index.wxss */
+
+.cover {
+    height: 12rem;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.menu {
+    padding: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 3.8rem);
+    place-content: start center;
+    gap: 10px;
+}
+
+.menu_sub {
+    border-bottom: solid 1px #eeeeee;
+    margin: 0.5rem 1rem 0 1rem;
+    padding: 0 0 0.2rem 0;
+    font-size: 0.8rem;
+    color: #acacac;
+}
+
+.item {
+    color: #666666;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-icon {
+    width: 3rem;
+    height: 3rem;
+    background-color: #eeeeee;
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-text {
+    font-size: 0.8rem;
+}

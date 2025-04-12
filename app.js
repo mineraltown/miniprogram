@@ -15,5 +15,9 @@ App({
     // 监听小程序启动或切前台。
     onShow() {
         this.globalData.version = wx.getStorageSync("version")
+    },
+    setVersion(version) {
+        this.globalData.version = version
+        wx.setStorageSync("version", version)
     }
 })

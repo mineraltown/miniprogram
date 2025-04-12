@@ -1,2 +1,44 @@
-<!--pages/wiki/index.wxml-->
-<view>{{ url }}</view>
+<view>
+    <!-- 封面 -->
+    <view class="cover">
+        <image mode="aspectFit" src="{{ cover }}"></image>
+    </view>
+    <!-- 菜单 -->
+    <view wx:for="{{ wiki }}" wx:key="idx" wx:for-index="idx" wx:for-item="item">
+        <!-- 标题 -->
+        <view class="menu_sub">{{ idx }}</view>
+        <!-- 二级菜单 -->
+        <view class="menu">
+            <!--  -->
+            <block wx:for="{{ item.list }}" wx:key="i" wx:for-index="n" wx:for-item="i">
+                <!-- 目录页面：存在 list -->
+                <block wx:if="{{ i.list }}">
+                    <navigator url="/pages/wiki/list?l={{ idx }}&n={{ n }}">
+                        <span class="item">
+                            <image class="item-icon" mode="scaleToFill" src="{{ i.icon }}" />
+                            <text class="item-text">{{ n }}</text>
+                        </span>
+                    </navigator>
+                </block>
+                <!-- 独立页面：存在 page -->
+                <block wx:elif="{{ i.page }}">
+                    <navigator url="/pages{{ i.page }}">
+                        <span class="item">
+                            <image class="item-icon" mode="scaleToFill" src="{{ i.icon }}" />
+                            <text class="item-text">{{ n }}</text>
+                        </span>
+                    </navigator>
+                </block>
+                <!-- 内容页面 -->
+                <block wx:else>
+                    <navigator url="/pages/wiki/content?id={{ i.id }}">
+                        <span class="item">
+                            <image class="item-icon" mode="scaleToFill" src="{{ i.icon }}" />
+                            <text class="item-text">{{ n }}</text>
+                        </span>
+                    </navigator>
+                </block>
+            </block>
+        </view>
+    </view>
+</view>

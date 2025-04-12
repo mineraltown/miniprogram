@@ -1,5 +1,6 @@
 // pages/wiki/index.js
 const app = getApp()
+
 Page({
 
     /**
@@ -7,13 +8,17 @@ Page({
      */
     data: {
         url: app.globalData.url,
-        version: app.globalData.version
+        version: app.globalData.version,
+        cover: "",
+        wiki: {}
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad(options) {},
+    onLoad(options) {
+        this.LoadMenu()
+    },
 
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -24,7 +29,12 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
+        if (this.data.version != app.globalData.version) {
+            this.setData({
+                version: app.globalData.version
+            })
+            this.LoadMenu()
+        }
     },
 
     /**
@@ -60,5 +70,24 @@ Page({
      */
     onShareAppMessage() {
 
+    },
+    LoadMenu() {
+        const that = this
+        wx.showLoading({
+            title: '加载目录...'
+        })
+        wx.request({
+            url: that.data.url + 'menu/' + that.data.version,
+            header: {
+                'content-type': 'application/json'
+            },
+            success(res) {
+                that.setData({
+                    cover: res.data.cover,
+                    wiki: res.data.wiki,
+                })
+            },
+            complete: () => wx.hideLoading()
+        })
     }
 })

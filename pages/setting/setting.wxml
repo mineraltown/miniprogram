@@ -1,6 +1,6 @@
 <!--pages/setting/setting.wxml-->
 <mp-cells title="设置">
-    <picker value="{{ index }}" range="{{ version }}" range-key="label">
+    <picker bindchange="changeVersion" value="{{ index }}" range="{{ version }}" range-key="label">
         <mp-cell value="切换游戏版本" link="true" footer="{{ version[index].label }}"></mp-cell>
     </picker>
 </mp-cells>

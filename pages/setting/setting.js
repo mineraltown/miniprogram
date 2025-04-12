@@ -27,16 +27,22 @@ Page({
             success(res) {
                 if (res.statusCode === 200) {
                     // 生成版本列表，用于picker
-                    let p = []
+                    let picker = []
                     for (let i in res.data) {
-                        p.push({
+                        picker.push({
                             label: res.data[i],
                             value: i,
                         })
                     }
-                    that.setData({
-                        version: p
-                    })
+                    for (let i in picker) {
+                        if (picker[i].value == app.globalData.version) {
+                            that.setData({
+                                version: picker,
+                                index: i
+                            })
+                            break
+                        }
+                    }
                 }
             },
             complete: () => wx.hideLoading()
@@ -90,5 +96,11 @@ Page({
      */
     onShareAppMessage() {
 
-    }
+    },
+    changeVersion(e) {
+        app.setVersion(this.data.version[e.detail.value].value)
+        this.setData({
+            index: e.detail.value
+        })
+    },
 })
