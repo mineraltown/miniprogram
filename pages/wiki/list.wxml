@@ -1,2 +1,14 @@
-<!--pages/wiki/list.wxml-->
-<text>pages/wiki/list.wxml</text>
+<mp-cells title="{{ options.n }}">
+    <block wx:for="{{ wiki }}" wx:key="n" wx:for-index="n" wx:for-item="i">
+        <block wx:if="{{ i.page }}">
+            <navigator url="/pages{{ i.page }}">
+                <mp-cell value="{{ n }}"></mp-cell>
+            </navigator>
+        </block>
+        <block wx:else>
+            <navigator url="/pages/wiki/content?id={{ i.id }}">
+                <mp-cell value="{{ n }}"></mp-cell>
+            </navigator>
+        </block>
+    </block>
+</mp-cells>
