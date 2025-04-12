@@ -1,0 +1,55 @@
+{
+    "entryPagePath": "pages/wiki/index",
+    "pages": [
+        "pages/wiki/index",
+        "pages/wiki/list",
+        "pages/wiki/content",
+        "pages/resident/index",
+        "pages/resident/resident",
+        "pages/todo/todo",
+        "pages/setting/setting",
+        "pages/cookbook/saikai",
+        "pages/fish/saikai"
+    ],
+    "window": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "矿石镇",
+        "navigationBarBackgroundColor": "#ffffff"
+    },
+    "style": "v2",
+    "renderer": "webview",
+    "componentFramework": "glass-easel",
+    "sitemapLocation": "sitemap.json",
+    "lazyCodeLoading": "requiredComponents",
+    "useExtendedLib": {
+        "weui": true
+    },
+    "tabBar": {
+        "list": [
+            {
+                "pagePath": "pages/wiki/index",
+                "iconPath": "icon/home.png",
+                "selectedIconPath": "icon/home-s.png",
+                "text": "攻略"
+            },
+            {
+                "pagePath": "pages/resident/index",
+                "iconPath": "icon/resident.png",
+                "selectedIconPath": "icon/resident-s.png",
+                "text": "居民"
+            },
+            {
+                "pagePath": "pages/todo/todo",
+                "iconPath": "icon/todo.png",
+                "selectedIconPath": "icon/todo-s.png",
+                "text": "提醒"
+            },
+            {
+                "pagePath": "pages/setting/setting",
+                "iconPath": "icon/setting.png",
+                "selectedIconPath": "icon/setting-s.png",
+                "text": "设置"
+            }
+        ]
+    }
+}
