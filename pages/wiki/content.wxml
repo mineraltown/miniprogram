@@ -1,2 +1,6 @@
-<!--pages/wiki/content.wxml-->
-<text>pages/wiki/content.wxml</text>
+<view class="content">
+    <view class="title">{{ title }}</view>
+    <view class="time">{{ time }}</view>
+    <rich-text mode="web" class="main" nodes="{{ text }}"></rich-text>
+    <view class="botttom"></view>
+</view>

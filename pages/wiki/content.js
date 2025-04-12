@@ -1,4 +1,6 @@
 // pages/wiki/content.js
+const app = getApp()
+
 Page({
 
     /**
@@ -12,7 +14,20 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad(options) {
-
+        const that = this
+        wx.request({
+            url: app.globalData.url + 'html/' + options.id,
+            header: {
+                'content-type': 'application/json'
+            },
+            success(res) {
+                that.setData({
+                    title: res.data.title,
+                    time: res.data.time,
+                    text: res.data.text,
+                })
+            }
+        })
     },
 
     /**
