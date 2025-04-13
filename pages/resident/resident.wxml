@@ -1,3 +1,8 @@
-<view class="content" wx:if="resident">
-    <view class="title">{{ resident.name.cn }}</view>
+<view class="content" wx:if="name">
+    <view class="title">{{ name }}</view>
+    <view class="resident">
+        <image wx:if="photo" src="{{ photo }}" mode="aspectFit"/>
+    </view>
+    <rich-text mode="web" class="main" nodes="{{ html }}"></rich-text>
+    <view class="botttom"></view>
 </view>

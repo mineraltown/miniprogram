@@ -1,1 +1,274 @@
-/* pages/resident/resident.wxss */
+.content {
+    margin-top: 1rem;
+    padding: 0 1rem;
+    line-height: 1.7rem;
+    color: #3a4750;
+}
+
+.botttom {
+    height: 2rem;
+}
+
+.link {
+    color: #386849 !important;
+}
+
+.link:hover {
+    color: #198d44 !important;
+}
+
+.p {
+    margin: 1rem 0;
+}
+
+.img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    border-radius: 0.5rem;
+}
+
+.red {
+    color: #c1272d;
+}
+
+.title {
+    color: #3a4750;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 3rem;
+    margin: 0.5rem 0;
+}
+
+.time {
+    font-size: 0.9rem;
+    color: #84969e;
+}
+
+.center {
+    margin: 0.5rem 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.h2 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    margin: 1rem 0;
+}
+
+.h3 {
+    font-size: 1.3rem;
+    line-height: 2rem;
+    margin: 1rem 0;
+}
+
+.h4 {
+    font-size: 1.1rem;
+    line-height: 2rem;
+    margin: 1rem 0;
+}
+
+.ul,
+.ol {
+    padding: 0 2rem;
+}
+
+.li {
+    margin: 0.2rem 0;
+    line-height: 1.7rem;
+}
+
+.hr {
+    height: 0;
+    border: none;
+    border-top: 1px solid #e9ecef;
+    margin: 2rem 0;
+}
+
+.table {
+    margin: 0.5rem 0;
+    width: 100%;
+    font-size: 0.9rem;
+    overflow: hidden;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #52616b;
+}
+
+.thead {
+    background-color: #52616b;
+    color: #fff;
+}
+
+.th,
+.td {
+    border: solid 1px #c3d6e3;
+    height: 1.7rem;
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.tr {
+    transition: background-color 0.2s;
+}
+
+.th_mini,
+.td_mini {
+    border: solid 1px #c3d6e3;
+    font-size: 0.8rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    padding: 0px;
+    text-align: center;
+}
+
+.tbody .tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+.tbody .tr:nth-of-type(even) {
+    background-color: #e9ecef;
+}
+
+.repeat {
+    font-size: 0.8rem;
+    color: #7e8c8d;
+}
+
+.key {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 1rem;
+    border: solid 2px #52616b;
+    background-color: #e9ecef;
+}
+
+.note {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    background-color: #e9ecef;
+}
+
+.gamepad {
+    display: inline-block;
+    vertical-align: sub;
+    width: 1.3rem;
+    height: 1.3rem;
+    margin: 0 0.3rem;
+}
+
+.icon {
+    display: inline-block;
+    vertical-align: sub;
+    width: 1.3rem;
+    height: 1.3rem;
+}
+
+.icon_mini {
+    display: inline-block;
+    vertical-align: sub;
+    width: 1rem;
+    height: 1rem;
+}
+
+.left1em {
+    margin-left: 0.5rem;
+}
+
+.animal {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+.animal .img {
+    margin: 0 0.5rem;
+    max-width: 7rem;
+    max-height: 7rem;
+}
+
+.mining {
+    margin: 0 1rem;
+}
+
+.mining .img {
+    max-width: 20rem;
+    max-height: 20rem;
+}
+
+.flex_prop {
+    max-width: 70rem;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.prop {
+    width: 100%;
+    max-width: 20rem;
+    height: 25rem;
+    padding: 0 1rem;
+    margin: 0.5rem;
+    border: solid 2px #52616b;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.scope {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.table_prop {
+    width: auto;
+    border-radius: none !important;
+    overflow: hidden;
+    border-collapse: collapse;
+    border-spacing: 0;
+    color: #52616b;
+}
+
+.mini {
+    font-size: 0.8em;
+}
+
+.invalid {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    border: solid 1px #52616b;
+    background-color: #f8f9fa;
+}
+
+.valid {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    border: solid 1px #52616b;
+    background-color: #e9ecef;
+}
+
+.resident {
+    height: 20rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}

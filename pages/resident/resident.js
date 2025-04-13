@@ -9,7 +9,9 @@ Page({
     data: {
         url: app.globalData.url,
         version: app.globalData.version,
-        resident: {}
+        name: "",
+        photo: "",
+        html: "",
     },
 
     /**
@@ -23,17 +25,18 @@ Page({
                 'content-type': 'application/json'
             },
             success(res) {
-                console.log(res.data)
                 if (res.statusCode === 200) {
                     that.setData({
-                        resident: res.data,
+                        name: res.data.name,
+                        photo: that.data.url + res.data.photo,
+                        html: res.data.html,
                     })
                     wx.setNavigationBarTitle({
                         title: res.data.name.cn
                     })
                 } else {
                     that.setData({
-                        resident: {},
+                        html: "<p style='text-align: center;'>数据加载失败</p>",
                     })
                 }
             }
