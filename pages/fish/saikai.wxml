@@ -1,2 +1,118 @@
-<!--pages/fish/saikai.wxml-->
-<text>pages/fish/saikai.wxml</text>
+<view class="content">
+    <view class="filter_sub">季节</view>
+    <view class="filter_item">
+        <!-- <view :class="['filter_btn', season.spring?'season_0':'none_0']" @click="change_season('spring')">春</div> -->
+        <view class="filter_btn {{ season.spring ? 'season_0' : 'none_0' }}" bindtap="change_season" data-season="spring">春</view>
+        <view class="filter_btn {{ season.summer ? 'season_1' : 'none_1' }}" bindtap="change_season" data-season="summer">夏</view>
+        <view class="filter_btn {{ season.autumn ? 'season_2' : 'none_2' }}" bindtap="change_season" data-season="autumn">秋</view>
+        <view class="filter_btn {{ season.winter ? 'season_3' : 'none_3' }}" bindtap="change_season" data-season="winter">冬</view>
+        <view class="filter_btn btn_select_none" bindtap="reverse" data-mode="season" data-all="t">全选</view>
+        <view class="filter_btn btn_select_none" bindtap="reverse" data-mode="season" data-all="f">反选</view>
+    </view>
+    <view class="filter_sub">地点</view>
+    <view class="filter_item">
+        <block wx:for="{{ ground }}" wx:key="n" wx:for-index="n" wx:for-item="i">
+            <view class="filter_btn {{ i ? 'btn_select' : 'btn_select_none' }}" bindtap="change_ground" data-ground="{{ n }}">{{ n }}</view>
+        </block>
+        <view class="filter_btn btn_select_none" bindtap="reverse" data-mode="ground" data-all="t">全选</view>
+        <view class="filter_btn btn_select_none" bindtap="reverse" data-mode="ground" data-all="f">反选</view>
+    </view>
+    <view class="table">
+        <view class="thead">
+            <view class="tr">
+                <view class="th_mini name">名称</view>
+                <text class="th_mini size">蓄力</text>
+                <text class="th_mini season">春</text>
+                <text class="th_mini season">夏</text>
+                <text class="th_mini season">秋</text>
+                <text class="th_mini season">冬</text>
+                <text class="th_mini size">最小</text>
+                <text class="th_mini size">最大</text>
+            </view>
+        </view>
+        <view class="tbody">
+            <block wx:for="{{ list }}" wx:key="i" wx:for-index="n" wx:for-item="i">
+                <view class="fish">
+                    <view class="tr">
+                        <view class="td_mini name">{{ i.name }}<text wx:if="{{i.king}}">*</text></view>
+                        <view class="td_mini size">{{ i.level }}</view>
+                        <view class="td_mini season">
+                            <block wx:if="{{ i.season.spring == 0 }}">
+                                <image class="icon_mini" src="/icon/close.svg" mode="aspectFit" />
+                            </block>
+                            <block wx:if="{{ i.season.spring == 1 }}">
+                                <image class="icon_mini" src="/icon/triangle.svg" mode="aspectFit" />
+                            </block>
+                            <block wx:if="{{ i.season.spring == 2 }}">
+                                <image class="icon_mini" src="/icon/circle.svg" mode="aspectFit" />
+                            </block>
+                        </view>
+                        <view class="td_mini season">
+                            <block wx:if="{{ i.season.summer == 0 }}">
+                                <image class="icon_mini" src="/icon/close.svg" mode="aspectFit" />
+                            </block>
+                            <block wx:if="{{ i.season.summer == 1 }}">
+                                <image class="icon_mini" src="/icon/triangle.svg" mode="aspectFit" />
+                            </block>
+                            <block wx:if="{{ i.season.summer == 2 }}">
+                                <image class="icon_mini" src="/icon/circle.svg" mode="aspectFit" />
+                            </block>
+                        </view>
+                        <view class="td_mini season">
+                            <block wx:if="{{ i.season.autumn == 0 }}">
+                                <image class="icon_mini" src="/icon/close.svg" mode="aspectFit" />
+                            </block>
+                            <block wx:if="{{ i.season.autumn == 1 }}">
+                                <image class="icon_mini" src="/icon/triangle.svg" mode="aspectFit" />
+                            </block>
+                            <block wx:if="{{ i.season.autumn == 2 }}">
+                                <image class="icon_mini" src="/icon/circle.svg" mode="aspectFit" />
+                            </block>
+                        </view>
+                        <view class="td_mini season">
+                            <block wx:if="{{ i.season.winter == 0 }}">
+                                <image class="icon_mini" src="/icon/close.svg" mode="aspectFit" />
+                            </block>
+                            <block wx:if="{{ i.season.winter == 1 }}">
+                                <image class="icon_mini" src="/icon/triangle.svg" mode="aspectFit" />
+                            </block>
+                            <block wx:if="{{ i.season.winter == 2 }}">
+                                <image class="icon_mini" src="/icon/circle.svg" mode="aspectFit" />
+                            </block>
+                        </view>
+                        <view class="td_mini size">
+                            <text wx:if="{{ i.size.min != 0 }}">{{ i.size.min }}</text>
+                            <text wx:else>-</text>
+                        </view>
+                        <view class="td_mini size">
+                            <text wx:if="{{ i.size.max != 0 }}">{{ i.size.max }}</text>
+                            <text wx:else>-</text>
+                        </view>
+                    </view>
+                    <view class="tr">
+                        <view class="td_mini location">
+                            {{ i.location }}
+                        </view>
+                        <view class="td_mini fish_note" wx:if="{{ i.note }}">
+                            {{ i.note }}
+                        </view>
+                    </view>
+                </view>
+            </block>
+
+        </view>
+    </view>
+    <view class="note">
+        <view>带有「 * 」标记的是鱼王！</view>
+        <view>
+            <image class="icon_mini" src="/icon/circle.svg" mode="aspectFit" /><text>：高概率钓到</text>
+        </view>
+        <view>
+            <image class="icon_mini" src="/icon/triangle.svg" mode="aspectFit" /><text>：低概率钓到</text>
+        </view>
+        <view>
+            <image class="icon_mini" src="/icon/close.svg" mode="aspectFit" /><text>：无法钓到</text>
+        </view>
+    </view>
+    <view class="botttom"></view>
+</view>

@@ -1,1 +1,162 @@
-/* pages/fish/saikai.wxss */
+.table {
+    width: 100%;
+}
+
+.thead {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.tr {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.fish {
+    border-top: solid 1px #52616b;
+}
+
+.th_mini {
+    flex-grow: 1;
+    font-weight: bold;
+    height: 100%;
+    border-bottom: none;
+}
+
+.td_mini {
+    flex-grow: 1;
+    height: 100%;
+}
+
+.flex_row {
+    display: flex;
+}
+
+.name {
+    font-weight: bold;
+    min-width: 5rem;
+    flex-grow: 1;
+}
+
+.season {
+    width: 1.3rem;
+}
+
+.size {
+    width: 1.8rem;
+}
+
+.location {
+    min-width: 30vw;
+}
+
+.filter_sub {
+    margin-top: 1rem;
+    padding-left: 0.5rem;
+    color: #acacac;
+}
+
+.filter_item {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.filter_btn {
+    margin: 0.2rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    padding: 0.3rem 0.8rem;
+    text-align: center;
+    border-radius: 5px;
+    transition: all 0.25s ease-out;
+}
+
+.btn_select {
+    color: #ffffff;
+    background-color: #198d44cc;
+}
+
+.btn_select:hover {
+    background-color: #198d4499;
+}
+
+.btn_select:active {
+    background-color: #198d44;
+}
+
+.btn_select_none {
+    color: #3a4750;
+    background-color: #e9ecef;
+}
+
+.btn_select_none:hover {
+    color: #3a4750;
+    background-color: #becddd;
+}
+
+.btn_select_none:active {
+    color: #ffffff;
+    background-color: #198d4499;
+}
+
+.season_0 {
+    color: #ffffff;
+    background-color: #00ad94;
+}
+
+.none_0 {
+    color: #00ad94;
+    background-color: #aad7d2aa;
+}
+
+.none_0:hover {
+    background-color: #9ad1cb;
+}
+
+.season_1 {
+    color: #ffffff;
+    background-color: #45933a;
+}
+
+.none_1 {
+    color: #45933a;
+    background-color: #88c283aa;
+}
+
+.none_1:hover {
+    background-color: #88c283;
+}
+
+.season_2 {
+    color: #ffffff;
+    background-color: #e28100;
+}
+
+.none_2 {
+    color: #e28100;
+    background-color: #efbb66aa;
+}
+
+.none_2:hover {
+    background-color: #efbb66;
+}
+
+.season_3 {
+    color: #ffffff;
+    background-color: #308ece;
+}
+
+.none_3 {
+    color: #308ece;
+    background-color: #a7cae6aa;
+}
+
+.none_3:hover {
+    background-color: #a7cae6;
+}
