@@ -11,12 +11,23 @@
 
 .tr {
     flex-grow: 1;
-    height: 100%;
     display: flex;
     flex-flow: row nowrap;
 }
 
+.tr_line {
+    height: auto;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .fish {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
     border-top: solid 1px #52616b;
 }
 
@@ -36,9 +47,26 @@
     display: flex;
 }
 
-.name {
-    font-weight: bold;
+.th_name {
+    width: 5rem;
     min-width: 5rem;
+}
+
+.fish_name {
+    width: 5rem;
+    min-width: 5rem;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: solid 1px #c3d6e3;
+    background-color: #f8f9fa;
+    font-size: 0.8rem;
+    padding: 2px;
+}
+
+.fish_text {
     flex-grow: 1;
 }
 
@@ -50,8 +78,13 @@
     width: 1.8rem;
 }
 
-.location {
-    min-width: 30vw;
+.fish_location {
+    min-width: 5rem;
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .filter_sub {
