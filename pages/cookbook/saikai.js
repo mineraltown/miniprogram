@@ -20,8 +20,7 @@ Page({
     onLoad(options) {
         const that = this
         wx.request({
-            // url: app.globalData.url + "replacementMap/",
-            url: "http://192.168.0.10:8888/replacementMap/",
+            url: app.globalData.url + "replacementMap",
             header: {
                 'content-type': 'application/json'
             },
@@ -32,7 +31,7 @@ Page({
             }
         })
         wx.request({
-            url: app.globalData.url + "saikai" + '/fish',
+            url: app.globalData.url + "saikai" + '/cookbook',
             header: {
                 'content-type': 'application/json'
             },
@@ -43,7 +42,6 @@ Page({
                 })
             }
         })
-
     },
 
     /**
@@ -93,18 +91,26 @@ Page({
     onShareAppMessage() {
 
     },
-    search_cookbook() {
+    input_search(e) {
         // 使用字典完成名词替换
-        let search = this.data.replacementMap[this.search] || this.data.search
+        let r = this.data.replacementMap[e.detail.value] || e.detail.value
+        this.setData({
+            search: r
+        })
+    },
+    search_cookbook() {
         // 清空菜谱
         let l = []
         // 循环完整菜谱，向显示菜谱增加匹配到的结果
         for (let i of this.data.raw) {
-            if (i.name.includes(this.search)) {
-                this.list.push(i)
-            } else if (i.ingredients.some(item => item.includes(this.search))) {
-                this.list.push(i)
+            if (i.name.includes(this.data.search)) {
+                l.push(i)
+            } else if (i.ingredients.some(item => item.includes(this.data.search))) {
+                l.push(i)
             }
         }
+        this.setData({
+            list: l
+        })
     },
 })

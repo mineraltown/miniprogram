@@ -1,1 +1,131 @@
-/* pages/cookbook/saikai.wxss */
+.table {
+    width: 100%;
+    border-bottom: solid 1px #c3d6e3;
+}
+
+.thead {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.tr {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.tr_hr {
+    border-top: solid 1px #52616b;
+}
+
+.th_name {
+    width: 5rem;
+    min-width: 5rem;
+    font-weight: bold;
+    border: solid 1px #c3d6e3;
+    border-bottom: none;
+    font-size: 0.8rem;
+    padding: 2px;
+    text-align: center;
+}
+
+.th_mini {
+    flex-grow: 1;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-bottom: none;
+}
+
+.td_name {
+    width: 5rem;
+    min-width: 5rem;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: solid 1px #c3d6e3;
+    border-bottom: none;
+    background-color: #f8f9fa;
+    font-size: 0.8rem;
+    padding: 2px;
+    text-align: center;
+}
+
+.td_main {
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.td_mini {
+    flex-grow: 1;
+    height: auto;
+    border-bottom: none;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.td_material {
+    flex-grow: 1;
+    border: solid 1px #c3d6e3;
+    border-bottom: none;
+    font-size: 0.8rem;
+    padding: 2px;
+}
+
+.search {
+    height: 3rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search_input {
+    font-size: 0.9rem;
+    flex-grow: 1;
+    border-radius: 10px 0 0 10px;
+    height: 2rem;
+    text-align: center;
+    outline: none;
+    border: none;
+    color: #3a4750;
+    font-size: 1rem;
+    background-color: #e9ecef;
+}
+
+.search_button {
+    width: 12vw;
+    max-width: 5rem;
+    border-radius: 0 10px 10px 0;
+    background-color: #e9ecef;
+    border: none;
+    height: 2rem;
+    margin: 0;
+    transition: all 0.25s ease-out;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.search_button:hover {
+    color: #ffffff;
+    background-color: #d9e8f1;
+}
+
+.search_icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}

@@ -1,2 +1,49 @@
-<!--pages/cookbook/saikai.wxml-->
-<text>pages/cookbook/saikai.wxml</text>
+<view class="content">
+    <view class="search">
+        <input class="search_input" type="text" confirm-type="search" bindconfirm="search_cookbook" bindinput="input_search" value="{{ search }}" placeholder="输入料理或材料名称进行查询" />
+        <view class="search_button" bindtap="search_cookbook">
+            <image class="search_icon" src="/icon/search.svg" mode="aspectFit" />
+        </view>
+    </view>
+    <view class="table">
+        <view class="thead">
+            <view class="tr">
+                <view class="th_name">名称</view>
+                <text class="th_name">出售价格</text>
+                <text class="th_mini">回复体力</text>
+                <text class="th_mini">回复疲劳</text>
+            </view>
+        </view>
+        <view class="tbody">
+            <block wx:for="{{ list }}" wx:key="i" wx:for-index="n" wx:for-item="i">
+                <view class="tr tr_hr">
+                    <view class="td_name">{{ i.name }}</view>
+                    <view class="td_main">
+                        <view class="tr">
+                            <text class="th_name">{{ i.price }}</text>
+                            <text class="td_mini" wx:if="{{ i.physical != 999 }}">{{ i.physical }}</text>
+                            <text class="td_mini" wx:else>-</text>
+                            <text class="td_mini" wx:if="{{ i.fatigue != 999 }}">{{ i.fatigue }}</text>
+                            <text class="td_mini" wx:else>-</text>
+                        </view>
+                        <view class="tr">
+                            <text class="th_name">材料</text>
+                            <text class="td_material">{{ i.ingredients }}</text>
+                        </view>
+                        <view class="tr">
+                            <text class="th_name">厨具</text>
+                            <text class="td_material">{{ i.kitchenware }}</text>
+                        </view>
+                        <view class="tr">
+                            <text class="th_name">获得方法</text>
+                            <view class="td_material">
+                                <rich-text nodes="{{ i.how_to_get }}" />
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+    </view>
+    <view class="botttom"></view>
+</view>
