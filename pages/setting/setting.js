@@ -17,6 +17,7 @@ Page({
     onLoad(options) {
         const that = this
         wx.showLoading({
+            mask: true,
             title: '获取版本...'
         })
         wx.request({
@@ -27,14 +28,14 @@ Page({
             success(res) {
                 if (res.statusCode === 200) {
                     // 生成版本列表，用于picker
-                    let picker = []
-                    for (let i in res.data) {
+                    var picker = []
+                    for (var i in res.data) {
                         picker.push({
                             label: res.data[i],
                             value: i,
                         })
                     }
-                    for (let i in picker) {
+                    for (var i in picker) {
                         if (picker[i].value == app.globalData.version) {
                             that.setData({
                                 version: picker,

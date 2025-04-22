@@ -74,6 +74,7 @@ Page({
     LoadMenu() {
         const that = this
         wx.showLoading({
+            mask: true,
             title: '加载目录...'
         })
         wx.request({

@@ -1,11 +1,13 @@
 // pages/todo/todo.js
+const app = getApp() // app.js > globalData
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        version: app.globalData.version,
     },
 
     /**
@@ -26,7 +28,11 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
-
+        if (this.data.version != app.globalData.version) {
+            this.setData({
+                version: app.globalData.version
+            })
+        }
     },
 
     /**

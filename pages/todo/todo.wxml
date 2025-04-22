@@ -1,2 +1,2 @@
-<!--pages/todo/todo.wxml-->
-<text>pages/todo/todo.wxml</text>
+<todo-saikai wx:if="{{ version == 'saikai' }}" />
+<view wx:else class="todo_none">暂时无法使用该功能</view>

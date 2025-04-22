@@ -93,16 +93,16 @@ Page({
     },
     input_search(e) {
         // 使用字典完成名词替换
-        let r = this.data.replacementMap[e.detail.value] || e.detail.value
+        var r = this.data.replacementMap[e.detail.value] || e.detail.value
         this.setData({
             search: r
         })
     },
     search_cookbook() {
         // 清空菜谱
-        let l = []
+        var l = []
         // 循环完整菜谱，向显示菜谱增加匹配到的结果
-        for (let i of this.data.raw) {
+        for (var i of this.data.raw) {
             if (i.name.includes(this.data.search)) {
                 l.push(i)
             } else if (i.ingredients.some(item => item.includes(this.data.search))) {

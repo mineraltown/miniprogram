@@ -37,7 +37,7 @@
                         <view class="tr">
                             <text class="th_name">获得方法</text>
                             <view class="td_material">
-                                <rich-text nodes="{{ i.how_to_get }}" />
+                                <rich-text mode="web" nodes="{{ i.how_to_get }}" />
                             </view>
                         </view>
                     </view>

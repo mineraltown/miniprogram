@@ -1,4 +1,6 @@
 {
     "navigationBarTitleText": "提醒",
-    "usingComponents": {}
+    "usingComponents": {
+        "todo-saikai": "saikai"
+    }
 }

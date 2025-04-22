@@ -1,1 +1,14 @@
-/* pages/todo/todo.wxss */
+page {
+    height: 100%;
+    background-color: #ebebeb;
+}
+
+.todo_none {
+    height: 100%;
+    font-size: 0.9rem;
+    color: #999999;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}

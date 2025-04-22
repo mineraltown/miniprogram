@@ -75,6 +75,7 @@ Page({
     LoadResident() {
         const that = this
         wx.showLoading({
+            mask: true,
             title: '加载居民...'
         })
         wx.request({
