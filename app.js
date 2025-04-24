@@ -11,6 +11,9 @@ App({
         } else {
             wx.setStorageSync("version", this.globalData.version)
         }
+        if (!wx.getStorageSync("advance")) {
+            wx.setStorageSync("advance", 3)
+        }
     },
     // 监听小程序启动或切前台。
     onShow() {

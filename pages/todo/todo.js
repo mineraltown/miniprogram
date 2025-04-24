@@ -28,6 +28,9 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow() {
+        this.setData({
+            version: ""
+        })
         if (this.data.version != app.globalData.version) {
             this.setData({
                 version: app.globalData.version

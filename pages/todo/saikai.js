@@ -18,7 +18,7 @@ Component({
         month: 0, // 月（0-3）
         day: 1, // 日（1-30）
         advance_day: 3, // 提前提醒天数
-        name: "起源", // 昵称
+        name: "", // 昵称
         birthday_month: 0, // 生日（月）
         birthday_day: 1, // 生日（日）
         cookbook: [], // 电视料理菜谱
@@ -31,14 +31,49 @@ Component({
      */
     created() {
         const that = this
+        this.setData({
+            advance_day: wx.getStorageSync("advance"), // 提前提醒天数
+            name: wx.getStorageSync("name"), // 昵称
+        })
+
+        // 读档
+        if (!wx.getStorageSync("saikai")) {
+            console.log("初始化")
+            wx.setStorageSync("saikai", {
+                year: 1,
+                month: 0,
+                day: 1,
+                birthday_month: 0,
+                birthday_day: 1,
+            })
+        } else {
+            var d = wx.getStorageSync("saikai")
+            this.setData({
+                year: d.year,
+                month: d.month,
+                day: d.day,
+                birthday_month: d.birthday_month,
+                birthday_day: d.birthday_day,
+            })
+        }
         wx.request({
-            // url: app.globalData.url + 'todo/saikai/Resident.json',
-            url: 'https://wiki.mineraltown.net/saikai/Plus/Resident.json',
+            url: app.globalData.url + "todo/saikai/resident",
             header: {
                 'content-type': 'application/json'
             },
             success(res) {
                 if (res.statusCode === 200) {
+                    for (var i in res.data) {
+                        // 如果生日和候补生日重复，则替换为备选生日日期
+                        if (res.data[i]["birthday"]["month"] == that.data.season[that.data.birthday_month][1]) {
+                            if (res.data[i]["birthday"]["day"] == that.data.birthday_day) {
+                                if (res.data[i]["birthday"]["day2"] != null) {
+                                    res.data[i]["birthday"]["day"] =
+                                        res.data[i]["birthday"]["day2"]
+                                }
+                            }
+                        }
+                    }
                     that.setData({
                         resident: res.data,
                     })
@@ -46,7 +81,7 @@ Component({
             }
         })
         wx.request({
-            url: 'https://wiki.mineraltown.net/saikai/Plus/Festival.json',
+            url: app.globalData.url + "todo/saikai/festival",
             header: {
                 'content-type': 'application/json'
             },
@@ -59,7 +94,7 @@ Component({
             }
         })
         wx.request({
-            url: 'https://wiki.mineraltown.net/saikai/Plus/Cookbook.json',
+            url: app.globalData.url + "todo/saikai/cookbook",
             header: {
                 'content-type': 'application/json'
             },
@@ -80,7 +115,21 @@ Component({
             this.get_calendar()
         }
     },
+    pageLifetimes: {
+        // 组件所在页面的生命周期函数
+        show: function () {},
+    },
     methods: {
+        // 存档
+        data_to_localStorage() {
+            wx.setStorageSync("saikai", {
+                year: this.data.year,
+                month: this.data.month,
+                day: this.data.day,
+                birthday_month: this.data.birthday_month,
+                birthday_day: this.data.birthday_day,
+            })
+        },
         // 获取日历（当周）
         get_calendar() {
             var ThisWeek = []
@@ -121,14 +170,14 @@ Component({
                     if (this.data.season[x[0]][1] == y.month && x[1] == y.day) {
                         // 第一年春1日的年糕大会不举行
                         if (!(this.data.year == 1 && this.data.month == 0 && x[1] == 1)) {
-                            z.push(y.name.cn)
+                            z.push(y.name)
                         }
                     }
                 }
                 // 居民生日
                 for (var y of this.data.resident) {
                     if (this.data.season[x[0]][1] == y.birthday.month && x[1] == y.birthday.day) {
-                        z.push(y.name.cn)
+                        z.push(y.name)
                     }
                 }
                 x.push(z)
@@ -148,6 +197,8 @@ Component({
                 month: month,
                 day: day,
             })
+            // 存档
+            this.data_to_localStorage()
         },
         // 下一天
         next() {
@@ -173,6 +224,7 @@ Component({
             }
             console.log('第' + this.data.year + '年 ' + this.data.season[this.data.month][1] + this.data.day + '日 星期' + this.data.week[((this.data.year - 1) * 120 + this.data.month * 30 + this.data.day - 1) % 7])
             // 存档
+            this.data_to_localStorage()
         }
     }
 })

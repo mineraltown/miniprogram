@@ -1,6 +1,19 @@
 <!--pages/setting/setting.wxml-->
 <mp-cells title="设置">
     <picker bindchange="changeVersion" value="{{ index }}" range="{{ version }}" range-key="label">
-        <mp-cell value="切换游戏版本" link="true" footer="{{ version[index].label }}"></mp-cell>
+        <mp-cell value="切换游戏版本" link="true" footer="{{ version[index].label ? version[index].label : '' }}"></mp-cell>
+    </picker>
+</mp-cells>
+<mp-cells title="提醒" wx:if="{{ season[v] !== undefined }}">
+    <mp-cell value="昵称" link="true" footer="{{ name }}" bindtap="changeName"></mp-cell>
+    <picker mode="multiSelector" bindchange="birthdayMultiPickerChange" value="{{ [birthday_month, birthday_day-1] }}" range="{{ [season[v][0], day_list] }}">
+        <mp-cell value="生日" link="true" footer="{{ season[v][0][birthday_month] + ' ' + birthday_day + ' 日' }}"></mp-cell>
+    </picker>
+    <mp-cell value="游戏时间（年）" link="true" footer="{{ '第 ' + year + ' 年 ' }}" bindtap="changeYear"></mp-cell>
+    <picker mode="multiSelector" bindchange="dayMultiPickerChange" value="{{ [month, day-1] }}" range="{{ [season[v][0], day_list] }}">
+        <mp-cell value="游戏时间（月/日）" link="true" footer="{{ season[v][0][month] + ' ' + day + ' 日' }}"></mp-cell>
+    </picker>
+    <picker bindchange="changeAdvance" value="{{ advance_day }}" range="{{ advance_list }}" range-key="label">
+        <mp-cell value="提前提醒天数" link="true" footer="{{ advance_list[advance_day].label ? advance_list[advance_day].label : '' }}"></mp-cell>
     </picker>
 </mp-cells>
