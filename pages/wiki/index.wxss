@@ -1,7 +1,7 @@
 /* pages/wiki/index.wxss */
 
 .cover {
-    height: 12rem;
+    height: 9rem;
     margin-top: 0.5rem;
     display: flex;
     flex-flow: column nowrap;
@@ -12,9 +12,9 @@
 .menu {
     padding: 1rem 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, 3.8rem);
+    grid-template-columns: repeat(auto-fill, 3.5rem);
     place-content: start center;
-    gap: 10px;
+    gap: 3px;
 }
 
 .menu_sub {
@@ -34,8 +34,8 @@
 }
 
 .item-icon {
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
     background-color: #eeeeee;
     border-radius: 10px;
     padding: 0.5rem;
