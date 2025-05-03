@@ -12,6 +12,9 @@ Page({
         version: [],
         todo: false,
         season: {
+            "mineraltown": [
+                ["春", "夏", "秋", "冬"], 30
+            ],
             "saikai": [
                 ["春", "夏", "秋", "冬"], 30
             ],

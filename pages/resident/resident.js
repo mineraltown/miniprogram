@@ -8,7 +8,6 @@ Page({
      */
     data: {
         url: app.globalData.url,
-        version: app.globalData.version,
         name: "",
         photo: "",
         html: "",
@@ -20,7 +19,7 @@ Page({
     onLoad(options) {
         const that = this
         wx.request({
-            url: that.data.url + 'resident/' + that.data.version + "/" + options.id,
+            url: that.data.url + 'resident/' + options.version + "/" + options.id,
             header: {
                 'content-type': 'application/json'
             },

@@ -1,6 +1,7 @@
 {
     "navigationBarTitleText": "提醒",
     "usingComponents": {
-        "todo-saikai": "saikai"
+        "todo-saikai": "saikai",
+        "todo-mineraltown": "mineraltown"
     }
 }
