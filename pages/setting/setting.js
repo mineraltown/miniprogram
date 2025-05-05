@@ -18,9 +18,12 @@ Page({
             "saikai": [
                 ["春", "夏", "秋", "冬"], 30
             ],
-            // "grabaza": [
-            // ["春", "夏", "秋", "冬"], 31
-            // ],
+            "bazaar": [
+                ["春", "夏", "秋", "冬"], 31
+            ],
+            "grabaza": [
+            ["春", "夏", "秋", "冬"], 31
+            ],
             // "welcome": [
             //     ["郁金香", "胡椒", "琥珀", "靛蓝"], 10
             // ],
@@ -90,6 +93,8 @@ Page({
         // 判断当前版本是否存在提醒功能
         if (this.data.season[this.data.v] !== undefined) {
             this.initialization()
+        } else {
+            this.localStorage_to_data()
         }
     },
 
