@@ -1,4 +1,5 @@
 <todo-saikai wx:if="{{ version == 'saikai' }}" />
 <todo-mineraltown wx:if="{{ version == 'mineraltown' }}" />
 <todo-bazaar wx:if="{{ version == 'bazaar' }}" />
+<todo-twotowns wx:if="{{ version == 'twotowns' }}" />
 <view wx:else class="todo_none">暂时无法使用该功能</view>

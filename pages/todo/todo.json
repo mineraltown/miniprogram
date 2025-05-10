@@ -3,6 +3,7 @@
     "usingComponents": {
         "todo-saikai": "saikai",
         "todo-mineraltown": "mineraltown",
-        "todo-bazaar": "bazaar"
+        "todo-bazaar": "bazaar",
+        "todo-twotowns": "twotowns"
     }
 }

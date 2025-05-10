@@ -1,0 +1,171 @@
+<wxs module="todo">
+    // 通过年月日计算是周几
+    var get_week = function (year, month, day) {
+        return ((year - 1) * 124 + month * 31 + day - 1) % 7
+    }
+    // 下个月
+    var next_month = function (month) {
+        var n
+        if (month == 3) {
+            n = 0
+        } else {
+            n = month + 1
+        }
+        return n
+    }
+    // 节日：是否在n天之内举行
+    var test_festival = function (i, n, season, month, day) {
+        var next = next_month(month)
+        if (i.month == season[month][1]) {
+            // 判断节日月份是否在当前月份
+            if (i.day - day == n) {
+                return true
+            } else {
+                return false
+            }
+        } else if (i.month == season[next][1]) {
+            // 或者下个月
+            if (i.day + 31 - day == n) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    // 生日：是否在n天之内举行
+    var test_birthday = function (i, n, season, month, day) {
+        var next = next_month(month)
+        if (i.birthday.month == season[month][1]) {
+            // 判断生日月份是否在当前月份
+            if (i.birthday.day - day == n) {
+                return true
+            } else {
+                return false
+            }
+        } else if (i.birthday.month == season[next][1]) {
+            // 或者下个月
+            if (i.birthday.day + 31 - day == n) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    // range 循环
+    var range = function (n) {
+        var arr = []
+        for (var i = 0; i < n; i++) {
+            arr.push(i + 1)
+        }
+        return arr
+    }
+    module.exports = {
+        range: range,
+        get_week: get_week,
+        test_festival: test_festival,
+        test_birthday: test_birthday,
+    }
+</wxs>
+<view class="todo">
+    <view class="todo_season">
+        <view class="todo_season_date">日历</view>
+        <view>第 {{ year }} 年</view>
+        <view class="todo_season_moon" v-text="season[month][1]"></view>
+    </view>
+    <view class="todo_calendar">
+        <block wx:for="{{ calendar }}" wx:key="i" wx:for-index="n" wx:for-item="i">
+            <view class="todo_calendar_days {{ i[1] != day ? '' : 'todo_calendar_this' }}" bindtap="change_calendar" data-year="{{ i[2] }}" data-month="{{ i[0] }}" data-day="{{ i[1] }}">
+                <view class="todo_calendar_week">{{ week[n] }}</view>
+                <view class="todo_calendar_day">
+                    <view class="todo_calendar_num"> {{ i[1] }}</view>
+                    <view class="todo_calendar_event" wx:for="{{ i[3] }}" wx:key="item">{{ item }}</view>
+                </view>
+            </view>
+        </block>
+    </view>
+    <view class="todo_card_list">
+        <view class="todo_card todo_card_today" wx:if="{{ name!='' && birthday_month==month && birthday_day==day }}">
+            <view class="todo_flex">
+                <view class="todo_title">{{ name }}</view>
+                <view class="bold">今天是你的生日，祝你生日快乐！</view>
+                <view class="todo_note">“对所有的烦恼说 Bye Bye，对所有的快乐说 Hi Hi”</view>
+            </view>
+        </view>
+        <block wx:for="{{ festival }}" wx:key="i" wx:for-index="n" wx:for-item="i">
+            <block wx:if="{{ i.month==season[month][1] && i.day==day }}">
+                <view class="todo_card todo_card_today">
+                    <view class="todo_flex">
+                        <view class="todo_title">{{ i.name }}</view>
+                        <block wx:if="{{ i.address }}">
+                            <view class="bold">地点：<text class="normal">{{ i.address }}</text></view>
+                            <view class="bold">时间：<text class="normal">{{ i.start_time }}</text></view>
+                        </block>
+                        <block wx:else>
+                            <view class="bold">时间：<text class="normal">全天</text></view>
+                        </block>
+                        <block wx:if="{{ i.note }}">
+                            <rich-text mode="web" nodes="{{ i.note }}" />
+                        </block>
+                    </view>
+                </view>
+            </block>
+        </block>
+        <block wx:for="{{ resident }}" wx:key="i" wx:for-index="n" wx:for-item="i">
+            <block wx:if="{{ i.birthday.month==season[month][1] && i.birthday.day==day }}">
+                <view class="todo_card todo_card_today">
+                    <view class="todo_flex">
+                        <view class="todo_title">{{ i.name }}</view>
+                        <view class="bold" wx:if="{{ i.like.best.length!=0 }}">最喜欢</view>
+                        <view wx:if="{{ i.like.best.length!=0 }}">{{ i.like.best }}</view>
+                        <view class="bold">喜欢</view>
+                        <view>{{ i.like.more }}</view>
+                    </view>
+                </view>
+            </block>
+        </block>
+        <block wx:if="{{ advance_day!=0 }}">
+            <block wx:for="{{ todo.range(advance_day) }}" wx:key="n" wx:for-index="n">
+                <block wx:for="{{ festival }}" wx:key="i" wx:for-item="i">
+                    <block wx:if="{{ todo.test_festival(i, n+1, season, month, day) }}">
+                        <view class="todo_card">
+                            <view class="todo_advance_days"> {{ i.month }} {{ i.day }} 日</view>
+                            <view class="todo_flex">
+                                <view class="gray">
+                                    <text class="todo_title">{{ i.name }}</text>
+                                    <view class="todo_note">
+                                        <text>距离 {{ i.name }} 还有 {{ n+1 }} 天</text>
+                                    </view>
+                                </view>
+                            </view>
+                        </view>
+                    </block>
+                </block>
+                <block wx:for="{{ resident }}" wx:key="i" wx:for-item="i">
+                    <block wx:if="{{ todo.test_birthday(i, n+1, season, month, day) }}">
+                        <view class="todo_card">
+                            <view class="todo_advance_days">{{ i.birthday.month }}{{ i.birthday.day }}日</view>
+                            <view class="todo_flex">
+                                <view class="gray">
+                                    <text class="todo_title">{{ i.name }}</text>
+                                    <text class="todo_note">距离生日还有 {{ n+1 }} 天</text>
+                                </view>
+                                <view class="gray bold" wx:if="{{ i.like.best.length!=0 }}">最喜欢</view>
+                                <view class="gray" wx:if="{{ i.like.best.length!=0 }}">{{ i.like.best }}</view>
+                                <view class="gray bold">喜欢</view>
+                                <view class="birthday_like gray">{{ i.like.more }}</view>
+                            </view>
+                        </view>
+                    </block>
+                </block>
+            </block>
+        </block>
+    </view>
+    <view class="todo_spacing"></view>
+    <view class="todo_next">
+        <view class="next_button" bindtap="next">下一天</view>
+    </view>
+</view>
