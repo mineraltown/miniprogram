@@ -2,7 +2,10 @@
 const app = getApp() // app.js > globalData
 
 Component({
-
+    options: {
+      addGlobalClass: true, // 允许外部全局样式穿透
+      styleIsolation: 'shared' // 或 'apply-shared'
+    },
     /**
      * 页面的初始数据
      */
@@ -24,6 +27,18 @@ Component({
         resident: [], // 居民生日
         festival: [], // 节日
         calendar: [], // 动态日历
+        animal_id: -1, // 动物ID
+        animal_page: false, // 添加动物
+        animal_change: false, // 修改动物
+        animal_list: [], // 动物列表
+        animal_type: ["鸡","黑鸡","牛","茶牛","羊","黑羊","白色羊驼","茶色羊驼"], // 动物类型
+        animal: {
+            name: "", // 名字
+            type: 0, // 类型
+            plan: 0, // 计划增产
+            cookie: [3,4,5,6], // 普通、野菜、谷物、鱼味
+            current: -1, // 选中项
+        }, // 添加动物
     },
     /**
      * 生命周期函数--在组件实例刚刚被创建时执行
@@ -44,6 +59,7 @@ Component({
                 day: 1,
                 birthday_month: 0,
                 birthday_day: 1,
+                animal_list: []
             })
         } else {
             var d = wx.getStorageSync("twotowns")
@@ -53,6 +69,7 @@ Component({
                 day: d.day,
                 birthday_month: d.birthday_month,
                 birthday_day: d.birthday_day,
+                animal_list: d.animal_list ? d.animal_list : []
             })
         }
         wx.request({
@@ -106,6 +123,134 @@ Component({
         show: function () {},
     },
     methods: {
+        // 添加动物
+        animal_add() {
+            this.setData({
+                animal_page: true,
+                animal: {
+                    name: "",
+                    type: 0,
+                    plan: 0,
+                    cookie: [0,0,0,0],
+                    current: -1,
+                },
+            })
+        },
+        // 修改动物名称
+        changeName(e) {
+            const that = this
+            wx.showModal({
+                title: '修改动物名称',
+                editable: true,
+                content: that.data.animal.name,
+                success(res) {
+                    if (res.confirm) {
+                        var animal = that.data.animal
+                        animal.name = res.content
+                        that.setData({
+                            animal: animal,
+                        })
+                    }
+                }
+            })
+        },
+        // 修改计划增产数量
+        animal_plan(e) {
+            var animal = this.data.animal
+            animal.plan = e.detail.value
+            this.setData({
+                animal: animal,
+            })
+        },
+        // 修改饼干数量
+        animal_cookie(e) {
+            var n = parseInt(e.currentTarget.dataset.mode)
+            const that = this
+            wx.showModal({
+                title: '修改饼干数量',
+                editable: true,
+                content: that.data.animal.cookie[n].toString(),
+                success(res) {
+                    if (res.confirm) {
+                        var INT = new RegExp("^[1-9][0-9]*$")
+                        if ( INT.test(res.content) ) {
+                            var cookie_number = parseInt(res.content)
+                        } else {
+                            var cookie_number = 0
+                        }
+                        var animal = that.data.animal
+                        animal.cookie[n] = cookie_number
+                        that.setData({
+                            animal: animal,
+                        })
+                    }
+                }
+            })
+        },
+        // 保存动物
+        animal_save() {
+            var animal = this.data.animal
+            var animal_list = this.data.animal_list
+            if (animal.name == "") {
+                animal.name = this.data.animal_type[animal.type] + "@" + (animal_list.length + 1).toString()
+            }
+            if (this.data.animal_id == -1) {
+                animal_list.push(animal)
+            }
+            this.setData({
+                animal: animal,
+                animal_list: animal_list,
+                animal_page: false,
+                animal_change: false,
+                animal_id: -1
+            })
+            this.data_to_localStorage()
+        },
+        // 选择动物类型
+        animal_picker(e) {
+            var animal = this.data.animal
+            animal.type = e.detail.value
+            this.setData({
+                animal: animal,
+            })
+        },
+        // 选择茶点类型
+        switch_counter(e) {
+            var i = parseInt(e.currentTarget.dataset.current)
+            var s = parseInt(e.currentTarget.dataset.id)
+            var animal_list = this.data.animal_list
+            if (animal_list[s].current == i) {
+                animal_list[s].current = -1
+            } else {
+                animal_list[s].current = i
+            }
+            this.setData({
+                animal_list: animal_list,
+            })
+            this.data_to_localStorage()
+        },
+        // 修改动物信息
+        animal_edit(e) {
+            var i = parseInt(e.currentTarget.dataset.id)
+            this.setData({
+                animal: this.data.animal_list[i],
+                animal_id: i,
+                animal_page: true,
+                animal_change: true
+            })
+        },
+        // 删除动物
+        animal_del() {
+            var animal_list = this.data.animal_list
+            animal_list.splice(this.data.animal_id, 1)
+            this.setData({
+                animal_list: animal_list,
+                animal_page: false,
+                animal_change: false,
+                animal_id: -1
+            })
+            this.data_to_localStorage()
+        },
         // 存档
         data_to_localStorage() {
             wx.setStorageSync("twotowns", {
@@ -114,6 +259,7 @@ Component({
                 day: this.data.day,
                 birthday_month: this.data.birthday_month,
                 birthday_day: this.data.birthday_day,
+                animal_list: this.data.animal_list,
             })
         },
         // 获取日历（当周）
@@ -208,8 +354,18 @@ Component({
                     })
                 }
             }
-            console.log('第' + this.data.year + '年 ' + this.data.season[this.data.month][1] + this.data.day + '日 星期' + this.data.week[((this.data.year - 1) * 124 + this.data.month * 31 + this.data.day - 1) % 7])
+            // 茶点计数器
+            var animal_list = this.data.animal_list
+            for (let i in animal_list) {
+                if (animal_list[i].current != -1) {
+                    animal_list[i].cookie[animal_list[i].current] += 1
+                }
+            }
+            this.setData({
+                animal_list: animal_list,
+            })
             // 存档
+            console.log('第' + this.data.year + '年 ' + this.data.season[this.data.month][1] + this.data.day + '日 星期' + this.data.week[((this.data.year - 1) * 124 + this.data.month * 31 + this.data.day - 1) % 7])
             this.data_to_localStorage()
         }
     }

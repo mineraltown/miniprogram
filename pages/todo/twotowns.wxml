@@ -63,7 +63,45 @@
         }
         return arr
     }
+    // 需要的茶点数量
+    var cookie_need = function (n,i,p) {
+        var cookie = [
+                [[2, 4, 6, 8],
+                [15, 30, 45, 60],
+                [4, 8, 12, 16],
+                [10, 20, 30, 40]],
+                [[1, 2, 3, 4],
+                [14, 28, 42, 56],
+                [2, 4, 6, 8],
+                [14, 28, 42, 56]],
+                [[7, 14, 21, 28],
+                [8, 16, 24, 32],
+                [15, 30, 45, 60, ],
+                [1, 2, 3, 4, ]],
+                [[4, 8, 12, 16],
+                [6, 12, 18, 24],
+                [20, 40, 60, 80],
+                [1, 2, 3, 4]],
+                [[2, 4, 6, 8],
+                [12, 24, 36, 48],
+                [12, 24, 36, 48],
+                [5, 10, 15, 20]],
+                [[1, 2, 3, 4],
+                [15, 30, 45, 60],
+                [9, 18, 27, 36],
+                [6, 12, 18, 24]],
+                [[0, 0, 0, 0],
+                [15, 30, 45, 60],
+                [15, 20, 25, 30],
+                [15, 20, 25, 30]],
+                [[0, 0, 0, 0],
+                [15, 30, 45, 60],
+                [15, 20, 25, 30],
+                [15, 20, 25, 30]]]
+        return cookie[parseInt(n)][parseInt(i)][parseInt(p)]
+    }
     module.exports = {
+        cookie_need: cookie_need,
         range: range,
         get_week: get_week,
         test_festival: test_festival,
@@ -71,12 +109,12 @@
     }
 </wxs>
 <view class="todo">
-    <view class="todo_season">
+    <view class="todo_season" wx:if="{{ !animal_page }}">
         <view class="todo_season_date">日历</view>
         <view>第 {{ year }} 年</view>
         <view class="todo_season_moon" v-text="season[month][1]"></view>
     </view>
-    <view class="todo_calendar">
+    <view class="todo_calendar" wx:if="{{ !animal_page }}">
         <block wx:for="{{ calendar }}" wx:key="i" wx:for-index="n" wx:for-item="i">
             <view class="todo_calendar_days {{ i[1] != day ? '' : 'todo_calendar_this' }}" bindtap="change_calendar" data-year="{{ i[2] }}" data-month="{{ i[0] }}" data-day="{{ i[1] }}">
                 <view class="todo_calendar_week">{{ week[n] }}</view>
@@ -87,7 +125,32 @@
             </view>
         </block>
     </view>
-    <view class="todo_card_list">
+    <view class="animal_box" wx:if="{{ !animal_page }}" wx:for="{{ animal_list }}" wx:key="i" wx:for-index="n" wx:for-item="i">
+        <view class="animal_box_name">{{ i.name }}</view>
+        <view class="animal_type">{{ animal_type[i.type] }}</view>
+        <view class="animal_cookies">
+            <view class="animal_cookie" bindtap="switch_counter" data-current="0" data-id="{{ n }}">
+                <view class="{{ i.current==0 ? 'cookie_0' : 'cookie_none' }}">普通</view>
+                <view>{{ i.cookie[0] }}/{{ todo.cookie_need(animal_list[n].type, 0, animal_list[n].plan) }}</view>
+            </view>
+            <view class="animal_cookie" bindtap="switch_counter" data-current="1" data-id="{{ n }}">
+                <view class="{{ i.current==1 ? 'cookie_1' : 'cookie_none' }}">野菜</view>
+                <view>{{ i.cookie[1] }}/{{ todo.cookie_need(animal_list[n].type, 1, animal_list[n].plan) }}</view>
+            </view>
+            <view class="animal_cookie" bindtap="switch_counter" data-current="2" data-id="{{ n }}">
+                <view class="{{ i.current==2 ? 'cookie_2' : 'cookie_none' }}">谷物</view>
+                <view>{{ i.cookie[2] }}/{{ todo.cookie_need(animal_list[n].type, 2, animal_list[n].plan) }}</view>
+            </view>
+            <view class="animal_cookie" bindtap="switch_counter" data-current="3" data-id="{{ n }}">
+                <view class="{{ i.current==3 ? 'cookie_3' : 'cookie_none' }}">鱼味</view>
+                <view>{{ i.cookie[3] }}/{{ todo.cookie_need(animal_list[n].type, 3, animal_list[n].plan) }}</view>
+            </view>
+        </view>
+        <view class="animal_edit" bindtap="animal_edit" data-id="{{ n }}">
+            <image class="icon" src="/icon/edit.svg" mode="aspectFit" />
+        </view>
+    </view>
+    <view class="todo_card_list" wx:if="{{ !animal_page }}">
         <view class="todo_card todo_card_today" wx:if="{{ name!='' && birthday_month==month && birthday_day==day }}">
             <view class="todo_flex">
                 <view class="todo_title">{{ name }}</view>
@@ -164,8 +227,28 @@
             </block>
         </block>
     </view>
+    <view class="todo_animal" wx:if="{{ animal_page }}">
+        <mp-cells title="添加动物">
+            <mp-cell ext-class="todo_cell" value="昵称" link="true" footer="{{ animal.name }}" bindtap="changeName"></mp-cell>
+            <picker bindchange="animal_picker" value="{{ animal.type }}" range="{{ animal_type }}">
+                <mp-cell ext-class="todo_cell" value="类型" link="true" footer="{{ animal ? animal_type[animal.type] : '' }}"></mp-cell>
+            </picker>
+        </mp-cells>
+        <mp-cells title="茶点相关">
+            <picker bindchange="animal_plan" value="{{ animal.plan }}" range="{{ [1,2,3,4] }}">
+                <mp-cell ext-class="todo_cell" value="计划增产" link="true" footer="{{ animal ? [1,2,3,4][animal.plan] : '' }}"></mp-cell>
+            </picker>
+            <mp-cell ext-class="todo_cell" value="普通茶点" wx:if="{{ animal_change }}" link="true" footer="{{ animal.cookie[0] }}" bindtap="animal_cookie" data-mode="0"></mp-cell>
+            <mp-cell ext-class="todo_cell" value="野菜茶点" wx:if="{{ animal_change }}" link="true" footer="{{ animal.cookie[1] }}" bindtap="animal_cookie" data-mode="1"></mp-cell>
+            <mp-cell ext-class="todo_cell" value="谷物茶点" wx:if="{{ animal_change }}" link="true" footer="{{ animal.cookie[2] }}" bindtap="animal_cookie" data-mode="2"></mp-cell>
+            <mp-cell ext-class="todo_cell" value="鱼味茶点" wx:if="{{ animal_change }}" link="true" footer="{{ animal.cookie[3] }}" bindtap="animal_cookie" data-mode="3"></mp-cell>
+        </mp-cells>
+    </view>
     <view class="todo_spacing"></view>
     <view class="todo_next">
-        <view class="next_button" bindtap="next">下一天</view>
+        <view class="animal_button" wx:if="{{ !animal_page }}" bindtap="animal_add">添加动物</view>
+        <view class="next_button" wx:if="{{ !animal_page }}" bindtap="next">下一天</view>
+        <view class="del_button" wx:if="{{ animal_page && animal_change }}" bindtap="animal_del">删除</view>
+        <view class="next_button" wx:if="{{ animal_page }}" bindtap="animal_save">保存</view>
     </view>
 </view>

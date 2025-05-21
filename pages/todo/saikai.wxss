@@ -1,8 +1,3 @@
-page {
-    color: #333333;
-    background-color: #ebebeb;
-}
-
 .warning {
     color: #b36c6d !important;
 }

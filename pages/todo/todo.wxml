@@ -1,6 +1,6 @@
 <todo-saikai wx:if="{{ version == 'saikai' }}" />
-<todo-mineraltown wx:if="{{ version == 'mineraltown' }}" />
-<todo-bazaar wx:if="{{ version == 'bazaar' }}" />
-<todo-trio wx:if="{{ version == 'trio' }}" />
-<todo-twotowns wx:if="{{ version == 'twotowns' }}" />
-<view wx:else class="todo_none">暂时无法使用该功能</view>
+<todo-mineraltown wx:elif="{{ version == 'mineraltown' }}" />
+<todo-bazaar wx:elif="{{ version == 'bazaar' }}" />
+<todo-trio wx:elif="{{ version == 'trio' }}" />
+<todo-twotowns wx:elif="{{ version == 'twotowns' }}" />
+<view class="todo_none" wx:else>暂时无法使用该功能</view>
